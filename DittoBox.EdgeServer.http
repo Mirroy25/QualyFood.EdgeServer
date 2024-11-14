@@ -1,0 +1,6 @@
+@DittoBox.EdgeServer_HostAddress = http://localhost:5048
+
+GET {{DittoBox.EdgeServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
