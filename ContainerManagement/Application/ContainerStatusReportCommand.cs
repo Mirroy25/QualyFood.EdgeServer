@@ -5,8 +5,10 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application
 {
     public record ContainerStatusReportCommand
     {
+		[Required]
+		public int ContainerId { get; set; }
         [Required]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
         [Required]
         public double? Temperature { get; set; }
         [Required]

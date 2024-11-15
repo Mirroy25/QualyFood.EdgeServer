@@ -9,5 +9,6 @@ namespace DittoBox.EdgeServer.ContainerManagement.Domain.Services
 		public Task SaveStatusReport(ContainerStatusRecord statusReport);
 		public Task<bool> IsReportToCloudRequired();
 		public Task ForwardNewTemplateSettings();
+		public Task<Container> GetContainerById(int containerId);
 	}
 }
