@@ -13,9 +13,9 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Services
         ILogger<ContainerService> logger
     ) : BaseService, IContainerService
 	{
-        public async Task<Container> CreateContainer(string uiid, string? macAddress = null)
+        public async Task<Container> CreateContainer(string uiid, int idInCloud)
         {
-			var container = new Container() { UIID = uiid, MACAddress = macAddress };
+			var container = new Container() { UIID = uiid, IdInCloudService = idInCloud };
             await containerRepository.Add(container);
             return container;
 
@@ -36,7 +36,12 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Services
             return containerRepository.GetContainerByUIID(uiid);
         }
 
-        public Task<bool> IsReportToCloudRequired(int containerId)
+		public async Task<IEnumerable<Container>> GetContainers()
+		{
+			return await containerRepository.GetAll();
+		}
+
+		public Task<bool> IsReportToCloudRequired(int containerId)
 		{
 			throw new NotImplementedException();
 		}
