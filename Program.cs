@@ -1,4 +1,5 @@
 using DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interfaces;
+using DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Internal;
 using DittoBox.EdgeServer.ContainerManagement.Application.Services;
 using DittoBox.EdgeServer.ContainerManagement.Domain.Services;
 using DittoBox.EdgeServer.ContainerManagement.Infrastructure.Configuration;
@@ -53,6 +54,7 @@ public class Program
 		using (var scope = app.Services.CreateScope())
 		{
 			var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+			// db.Database.EnsureDeleted();
 			db.Database.EnsureCreated();
 		}
 
@@ -69,6 +71,8 @@ public class Program
 	private static void ConfigureServices(WebApplicationBuilder builder)
 	{
 		builder.Services.AddScoped<IContainerStatusReportCommandHandler, ContainerStatusReportCommandHandler>();
+		builder.Services.AddScoped<IContainerSelfRegisterCommandHandler, ContainerSelfRegisterCommandHandler>();
+		builder.Services.AddScoped<IGetContainersQueryHandler, GetContainersQueryHandler>();
 
 		builder.Services.AddScoped<IContainerService, ContainerService>();
 		builder.Services.AddScoped<IContainerRepository, ContainerRepository>();

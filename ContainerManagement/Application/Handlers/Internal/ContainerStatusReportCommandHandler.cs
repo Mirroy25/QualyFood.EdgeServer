@@ -1,15 +1,15 @@
+using DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interfaces;
 using DittoBox.EdgeServer.ContainerManagement.Domain.Models.Entities;
 using DittoBox.EdgeServer.ContainerManagement.Domain.Models.ValueObjects;
 using DittoBox.EdgeServer.ContainerManagement.Domain.Services;
 using DittoBox.EdgeServer.ContainerManagement.Infrastructure.Configuration;
 
-namespace DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interfaces
+namespace DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Internal
 {
 	public class ContainerStatusReportCommandHandler(
 		IContainerService containerService,
 		ICloudService cloudService,
-        IUnitOfWork unitOfWork,
-        IConfiguration configuration
+        IUnitOfWork unitOfWork
 	) : IContainerStatusReportCommandHandler
 	{
         private readonly int _maxMillisecondsBetweenReports = Convert.ToInt32(Environment.GetEnvironmentVariable("MAX_MILLISECONDS_BETWEEN_REPORTS") ?? "60000");
@@ -22,14 +22,6 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interface
             if (container == null && !string.IsNullOrEmpty(command.DeviceId))
             {
                 container = await containerService.GetContainerByUIID(command.DeviceId);
-            }
-
-
-            // If still not found, create a new container
-            if (container == null && !string.IsNullOrEmpty(command.DeviceId))
-            {
-                container = await containerService.CreateContainer(command.DeviceId);
-                await unitOfWork.CommitAsync();
             }
 
             // If still not found, throw an exception

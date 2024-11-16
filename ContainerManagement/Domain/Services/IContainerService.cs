@@ -10,8 +10,9 @@ namespace DittoBox.EdgeServer.ContainerManagement.Domain.Services
 		public Task<bool> IsReportToCloudRequired(int containerId);
 		public Task ForwardNewTemplateSettings();
 		public Task<Container?> GetContainerById(int containerId);
+		public Task<IEnumerable<Container>> GetContainers();
 		public Task<Container?> GetContainerByUIID(string uiid);
-        public Task<Container> CreateContainer(string uiid, string? macAddress = null);
+        public Task<Container> CreateContainer(string uiid, int idInCloud);
 		public Task SendReportToCloud(int containerId, int timeframe);
     }
 }
