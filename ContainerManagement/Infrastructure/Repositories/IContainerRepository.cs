@@ -6,5 +6,6 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Services
 {
 	public interface IContainerRepository : IBaseRepository<Container>
 	{
-	}
+		public Task<Container?> GetContainerByUIID(string uiid);
+    }
 }

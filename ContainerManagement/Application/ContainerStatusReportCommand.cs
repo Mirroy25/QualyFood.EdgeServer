@@ -24,19 +24,10 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application
         [Required]
         public double? GasSO2 { get; set; }
         [Required]
-        public HealthMonitor GasHealthMonitor { get; set; }
+        public HealthMonitor GasHealthMonitor { get; set; } = new HealthMonitor();
         [Required]
-        public HealthMonitor TemperatureHealthMonitor { get; set; }
+        public HealthMonitor TemperatureHealthMonitor { get; set; } = new HealthMonitor();
         [Required]
-        public HealthMonitor HumidityHealthMonitor { get; set; }
-
-		public ContainerStatusReportCommand() {
-			GasHealthMonitor.SensorType = SensorType.GAS_SENSOR;
-			GasHealthMonitor.SensorType = SensorType.GAS_SENSOR;
-			TemperatureHealthMonitor.SensorType = SensorType.TEMPERATURE_SENSOR;
-			TemperatureHealthMonitor.SensorType = SensorType.TEMPERATURE_SENSOR;
-			HumidityHealthMonitor.SensorType = SensorType.HUMIDITY_SENSOR;
-			HumidityHealthMonitor.SavedAt = DateTime.Now;
-		}
+        public HealthMonitor HumidityHealthMonitor { get; set; } = new HealthMonitor();
     }
 }
