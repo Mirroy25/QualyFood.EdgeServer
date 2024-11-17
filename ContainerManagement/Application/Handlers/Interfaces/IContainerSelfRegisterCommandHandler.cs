@@ -1,7 +1,9 @@
+using DittoBox.EdgeServer.ContainerManagement.Application.Resources;
+
 namespace DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interfaces
 {
 	public interface IContainerSelfRegisterCommandHandler
 	{
-		Task Handle(ContainerSelfRegisterCommand command);
+		Task<ContainerRegistrationResource> Handle(ContainerSelfRegisterCommand command);
 	}
 }

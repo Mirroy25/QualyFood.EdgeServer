@@ -18,7 +18,6 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Services
 			var container = new Container() { UIID = uiid, IdInCloudService = idInCloud };
             await containerRepository.Add(container);
             return container;
-
         }
 
         public Task ForwardNewTemplateSettings()
@@ -78,7 +77,7 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Services
                 SulfurDioxide = statusReports.Average(r => r.GasSO2)
             };
 
-            var response = await client.PutAsJsonAsync(Path.Combine(BaseUrl, $"container/{container!.Id}/metrics"),statusResource);
+            var response = await client.PutAsJsonAsync(Path.Combine(BaseUrl, $"container/{container!.IdInCloudService}/metrics"),statusResource);
             if (response.IsSuccessStatusCode)
             {
 

@@ -1,5 +1,6 @@
 ﻿using DittoBox.EdgeServer.ContainerManagement.Application;
 using DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interfaces;
+using DittoBox.EdgeServer.ContainerManagement.Application.Resources;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,9 +25,9 @@ namespace DittoBox.EdgeServer.ContainerManagement.Interface
 		}
 
 		[HttpPost("self-register-container")]
-		public async Task<IActionResult> PostSelfRegisterContainerAsync([FromBody] ContainerSelfRegisterCommand command) {
-			await containerSelfRegisterCommandHandler.Handle(command);
-			return Ok();
+		public async Task<ActionResult<ContainerRegistrationResource>> PostSelfRegisterContainerAsync([FromBody] ContainerSelfRegisterCommand command) {
+			var result = await containerSelfRegisterCommandHandler.Handle(command);
+			return Ok(result);
 		}
     }
 }
