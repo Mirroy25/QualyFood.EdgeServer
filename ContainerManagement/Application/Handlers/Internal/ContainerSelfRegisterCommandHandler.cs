@@ -1,4 +1,5 @@
 using DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Interfaces;
+using DittoBox.EdgeServer.ContainerManagement.Application.Resources;
 using DittoBox.EdgeServer.ContainerManagement.Domain.Services;
 using DittoBox.EdgeServer.ContainerManagement.Infrastructure.Configuration;
 
@@ -9,10 +10,11 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Internal
 		IUnitOfWork unitOfWork
 	) : IContainerSelfRegisterCommandHandler
 	{
-		public async Task Handle(ContainerSelfRegisterCommand command)
+		public async Task<ContainerRegistrationResource> Handle(ContainerSelfRegisterCommand command)
 		{
-			await cloudService.RegisterContainer(command.Uiid);
+			var result = await cloudService.RegisterContainer(command.Uiid);
 			await unitOfWork.CommitAsync();
+			return result;
 		}
 	}
 }
