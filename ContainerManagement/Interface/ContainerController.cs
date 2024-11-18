@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DittoBox.EdgeServer.ContainerManagement.Interface
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/container")]
     [ApiController]
     public class ContainerController(
 		IGetContainersQueryHandler getContainersQueryHandler
