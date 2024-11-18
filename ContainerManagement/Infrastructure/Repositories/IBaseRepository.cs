@@ -1,11 +1,12 @@
-namespace DittoBox.EdgeServer.ContainerManagement.Infrastructure.Repositories
+namespace DittoBox.EdgeServer.ContainerManagement.Infrastructure.Repositories;
+public interface IBaseRepository<T> where T : class
 {
-	public interface IBaseRepository<T> where T : class
-	{
-		Task<T?> GetByIdAsync(Guid id);
-		Task<IEnumerable<T>> GetAllAsync();
-		Task AddAsync(T entity);
-		Task UpdateAsync(T entity);
-		Task DeleteAsync(T entity);
-	}
+    Task<T?> GetById(int id);
+    Task<IEnumerable<T>> GetAll();
+    Task Add(T entity);
+    Task Update(T entity);
+    Task Delete(T entity);
+
+    Task<IQueryable<T>> GetAllSync();
+
 }

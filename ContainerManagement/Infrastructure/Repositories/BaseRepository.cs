@@ -2,40 +2,42 @@ using DittoBox.EdgeServer.ContainerManagement.Infrastructure.Configuration;
 using DittoBox.EdgeServer.ContainerManagement.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
+
+public abstract class BaseRepository<T>(
+    ApplicationDbContext context
+    ) : IBaseRepository<T> where T : class
 {
-	protected readonly ApplicationDbContext _dbContext;
+    protected ApplicationDbContext context = context;
 
-	public BaseRepository(ApplicationDbContext dbContext)
-	{
-		_dbContext = dbContext;
-	}
+    public async Task Add(T entity)
+    {
+        await context.Set<T>().AddAsync(entity);
+    }
 
-	public virtual async Task<T?> GetByIdAsync(Guid id)
-	{
-		return await _dbContext.Set<T>().FindAsync(id);
-	}
+    public async Task Delete(T entity)
+    {
+        context.Set<T>().Remove(entity);
+        await Task.CompletedTask;
+    }
 
-	public virtual async Task<IEnumerable<T>> GetAllAsync()
-	{
-		return await _dbContext.Set<T>().ToListAsync();
-	}
+    public async Task<IEnumerable<T>> GetAll()
+    {
+        return await context.Set<T>().ToListAsync();
+    }
 
-	public virtual async Task AddAsync(T entity)
-	{
-		await _dbContext.Set<T>().AddAsync(entity);
-		await _dbContext.SaveChangesAsync();
-	}
+    public async Task<T?> GetById(int id)
+    {
+        return await context.Set<T>().FindAsync(id);
+    }
 
-	public virtual async Task UpdateAsync(T entity)
-	{
-		_dbContext.Set<T>().Update(entity);
-		await _dbContext.SaveChangesAsync();
-	}
+    public Task Update(T entity)
+    {
+        context.Set<T>().Update(entity);
+        return Task.CompletedTask;
+    }
 
-	public virtual async Task DeleteAsync(T entity)
-	{
-		_dbContext.Set<T>().Remove(entity);
-		await _dbContext.SaveChangesAsync();
-	}
+    public Task<IQueryable<T>> GetAllSync()
+    {
+        return Task.FromResult((IQueryable<T>)context.Set<T>());
+    }
 }
