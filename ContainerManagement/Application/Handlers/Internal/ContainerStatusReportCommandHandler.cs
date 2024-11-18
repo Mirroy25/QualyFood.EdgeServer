@@ -94,7 +94,7 @@ namespace DittoBox.EdgeServer.ContainerManagement.Application.Handlers.Internal
             // ----
 
             // Send the report to the cloud if necessary
-            if (container.LastSentStatusReport == null || container.LastSentStatusReport < DateTime.Now.AddMinutes(-1))
+            if (container.LastSentStatusReport == null || container.LastSentStatusReport < DateTime.Now.AddMilliseconds(-_maxMillisecondsBetweenReports))
             {
                 await containerService.SendReportToCloud(container.Id, _maxMillisecondsBetweenReports);
                 
