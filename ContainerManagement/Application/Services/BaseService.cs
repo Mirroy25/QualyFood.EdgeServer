@@ -2,7 +2,7 @@
 {
     public abstract class BaseService
     {
-        protected string BaseUrl { get; set; } = "https://dittobox-cloud-bubuexbzeyb5fqh6.westus2-01.azurewebsites.net/api/v1/";
+        protected string BaseUrl { get; set; } = "https://qualifood-app-a3dtarcmg4defzd5.westcentralus-01.azurewebsites.net/api/v1/";
 	
 	}
 }
